@@ -1,0 +1,65 @@
+@use "../abstracts/colors" as *;
+
+.button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgb(0 0 0 / .5);
+    background-color: $button;
+}
+
+.button-large{
+    width: 110px;
+    border-radius: 100px;
+}
+
+.buttons__grid{
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(5, 50px);
+    gap: 10px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#clear{
+    grid-column: 1 / span 2;
+    grid-row: 1 / 2;
+}
+
+#delete{
+    grid-column: 3 / span 2;
+    grid-row: 1 / 2;
+}
+
+#divide{
+    grid-column: 4 / 5;
+    grid-row: 2 / 3;
+}
+
+#multiply{
+    grid-column: 4 / 5;
+    grid-row: 3 / 4;
+}
+
+#subtract{
+    grid-column: 4 / 5;
+    grid-row: 4 / 5;
+}
+
+#sum{
+    grid-column: 4 / 5;
+    grid-row: 5/ 6;
+}
+
+#equal{
+    grid-column: 3 / 4;
+    grid-row: 5 / 6;
+}
+
+#point{
+    grid-column: 1 / 2;
+    grid-row: 5 / 6;
+}

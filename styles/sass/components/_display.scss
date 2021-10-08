@@ -1,0 +1,10 @@
+@use "../abstracts/colors" as *;
+
+.display{
+    width: 230px;
+    height: 50px;
+    margin: 10px auto;
+    background-color: $button;
+    text-align: right;
+    line-height: 2;
+}

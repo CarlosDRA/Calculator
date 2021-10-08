@@ -4,40 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./styles/css/normalize.css">
+    <link rel="stylesheet" href="./styles/css/main.css">
+
     <title>Calculator</title>
 </head>
 <body>
     <main>
         <h1>JS Calculator</h1>
         <div class="calculator">
-            <div class="display">1992347.99</div>
-            <div class="buttons">
-                <div class="misc">
-                    <button id="clear">AC</button>
-                    <button id="delete">C</button>
-                    <button id="porcentage">%</button>
-                    <button id="power">^</button>
-                </div>
-                <div class="operations">
-                    <button id="divide">÷</button>
-                    <button id="multiply">X</button>
-                    <button id="subtract">-</button>
-                    <button id="sum">+</button>
-                    <button id="equal">=</button>
-                </div>
-                <div class="numbers">
-                    <button id="number7">7</button>
-                    <button id="number8">8</button>
-                    <button id="number9">9</button>
-                    <button id="number4">4</button>
-                    <button id="number5">5</button>
-                    <button id="number6">6</button>
-                    <button id="number1">1</button>
-                    <button id="number2">2</button>
-                    <button id="number3">3</button>
-                    <button id="number0">0</button>
-                    <button id="point">.</button>
-                </div>
+            <div class="display">0</div>
+            <div class="buttons__grid">
+                <button class="button button-large" id="clear">AC</button>
+                <button class="button button-large" id="delete">C</button>
+            
+                <button class="button" id="divide">÷</button>
+                <button class="button" id="multiply">×</button>
+                <button class="button" id="subtract">-</button>
+                <button class="button" id="sum">+</button>
+                <button class="button" id="equal">=</button>
+        
+                <button class="button" id="number7">7</button>
+                <button class="button" id="number8">8</button>
+                <button class="button" id="number9">9</button>
+                <button class="button" id="number4">4</button>
+                <button class="button" id="number5">5</button>
+                <button class="button" id="number6">6</button>
+                <button class="button" id="number1">1</button>
+                <button class="button" id="number2">2</button>
+                <button class="button" id="number3">3</button>
+                <button class="button" id="number0">0</button>
+                <button class="button" id="point">.</button>
             </div>
         </div>
     </main>

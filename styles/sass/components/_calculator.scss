@@ -1,0 +1,11 @@
+@use "../abstracts/colors" as *;
+
+.calculator{
+    width: 260px;
+    height: 420px;
+    margin: 50px auto;
+    padding-top: 10px;
+    background-color: $body;
+    box-shadow: 0 10px 10px 10px rgb(0 0 0 / .2);
+    position: relative;
+}
