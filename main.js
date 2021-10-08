@@ -20,17 +20,20 @@ const number8 = document.querySelector("#number8")
     .addEventListener("click", changeNumber);
 const number9 = document.querySelector("#number9")
     .addEventListener("click", changeNumber);
+const point = document.querySelector("#point")
+    .addEventListener("click", changeNumber);
 
 // get all non number buttons
-const result = document.querySelector("#equal");
+const result = document.querySelector("#equal")
+    .addEventListener("click", handleResult);
 const sum = document.querySelector("#sum")
-    .addEventListener("click", () => operation = "sum");
+    .addEventListener("click", () => handleOperation("sum"));
 const div = document.querySelector("#divide")
-    .addEventListener("click", () => operation = "div");
+    .addEventListener("click", () => handleOperation("div"));
 const multi = document.querySelector("#multiply")
-    .addEventListener("click", ()=> operation = "multi");
+    .addEventListener("click", ()=> handleOperation("multi"));
 const subt = document.querySelector("#subtract")
-    .addEventListener("click", ()=> operation = "subtraction");
+    .addEventListener("click", ()=> handleOperation("subt"));
 const display = document.querySelector(".display");
 
 let operation;
@@ -63,19 +66,36 @@ const divide = (a, b) =>{
     return a/b;
 }
 
+function handleOperation(op){
+    value1 = parseInt(displayValue);
+    console.log(typeof(value1), value1);
+    console.log(displayValue);
+    displayValue = "";
+    operation = op;
+    console.log(operation);
+}
+
+function handleResult(){
+    value2 = parseInt(displayValue);
+    console.log(typeof(value2), value2);
+    console.log(displayValue);
+
+    console.log(`operate ${operation}, ${value1}, ${value2}`);
+    let result = operate(operation, value1, value2).toString();
+    console.log(result);
+    displayValue = result;
+    display.textContent = result;
+}
+
 function operate(op, n1, n2){
     switch(op){
-        case sum:
-            add(n1,n2);
-            break;
-        case sub:
-            subtract(n1, n2);
-            break;
-        case multi:
-            multiply(n1,n2);
-            break;
-        case div:
-            divide(n1, n2);
-            break;
+        case "sum":
+            return add(n1,n2);
+        case "subt":
+            return subtract(n1, n2);
+        case "multi":
+            return multiply(n1,n2);
+        case "div":
+            return divide(n1, n2);
     }
 }
