@@ -1,53 +1,105 @@
 "use strict"
 
-const number0 = document.querySelector("#number0")
-    .addEventListener("click", changeNumber);
-const number1 = document.querySelector("#number1")
-    .addEventListener("click", changeNumber);
-const number2 = document.querySelector("#number2")
-    .addEventListener("click", changeNumber);
-const number3 = document.querySelector("#number3")
-    .addEventListener("click", changeNumber);
-const number4 = document.querySelector("#number4")
-    .addEventListener("click", changeNumber);
-const number5 = document.querySelector("#number5")
-    .addEventListener("click", changeNumber);
-const number6 = document.querySelector("#number6")
-    .addEventListener("click", changeNumber);
-const number7 = document.querySelector("#number7")
-    .addEventListener("click", changeNumber);
-const number8 = document.querySelector("#number8")
-    .addEventListener("click", changeNumber);
-const number9 = document.querySelector("#number9")
-    .addEventListener("click", changeNumber);
-const point = document.querySelector("#point")
-    .addEventListener("click", changeNumber);
-
-// get all non number buttons
-const result = document.querySelector("#equal")
-    .addEventListener("click", handleResult);
-const sum = document.querySelector("#sum")
-    .addEventListener("click", () => handleOperation("sum"));
-const div = document.querySelector("#divide")
-    .addEventListener("click", () => handleOperation("div"));
-const multi = document.querySelector("#multiply")
-    .addEventListener("click", ()=> handleOperation("multi"));
-const subt = document.querySelector("#subtract")
-    .addEventListener("click", ()=> handleOperation("subt"));
-const display = document.querySelector(".display");
-
-let operation;
-
-
+let displayValue = "";
 let value1 = 0;
 let value2 = 0;
-let displayValue = "";
+let currentOperation = null;
+let resetDisplay = false;
 
+const operations = document.querySelectorAll("[data-op]");
+const numbers = document.querySelectorAll("[data-num]");
+const display = document.querySelector(".display");
+
+//-------------------------------------- Event Listeners --------------------------------------------
+
+const eraseNumber = document.getElementById("delete").addEventListener("click", deleteNumber);
+const result = document.querySelector("#equal").addEventListener("click", handleResult);
+const clear = document.getElementById("clear").addEventListener("click", clearDisplay);
+const point = document.getElementById("point").addEventListener("click", addPoint);
+
+numbers.forEach(num => {
+    num.addEventListener("click", changeNumber);
+});
+
+operations.forEach(op => {
+    op.addEventListener("click", () => handleOperation(op.dataset.op));
+})
+
+//-------------------------------------- variable changes ------------------------------------------
 
 function changeNumber(e){
-    displayValue += e.target.textContent;
+    if(displayValue === null){
+        displayValue = "";
+    }
+    
+    if(displayValue.length < 13){
+        displayValue += e.target.textContent; //limit to 13 characters in display when entering numbers
+    }
     display.textContent = displayValue;
-    console.log(displayValue)
+    console.log(displayValue);
+}
+
+function addPoint(){
+    if(display.textContent == ""){
+        displayValue = "0";
+        display.textContent = displayValue
+    }
+    if(display.textContent.includes(".")){
+        return;
+    } else{
+        displayValue += ".";
+        display.textContent = displayValue;
+    }
+}
+
+function handleOperation(op){
+    if(currentOperation !== null){
+        evaluate();
+    }
+    
+    value1 = Number(displayValue);
+    currentOperation = op;
+    displayValue = "";
+}
+
+function clearDisplay(){
+    displayValue = "";
+    value1 = "";
+    value2 = "";
+    display.textContent = "0";
+}
+
+function deleteNumber(){
+    display.textContent = display.textContent.slice(0, -1);
+    displayValue = display.textContent;
+}
+
+//------------------------------------------- results ---------------------------------------------
+
+function handleResult(){
+    value2 = Number(displayValue);
+    let result = round(operate(currentOperation, value1, value2));
+    displayValue = result;
+    display.textContent = result;
+    currentOperation = null;
+}
+
+function evaluate(){
+    if(currentOperation == null){
+        return
+    }
+    value2 = Number(displayValue);
+    let result = round(operate(currentOperation, value1, value2));
+    displayValue = result;
+    display.textContent = displayValue;
+    currentOperation = null;
+}
+
+
+//---------------------------------------- operations --------------------------------------------
+
+function round(num){
+    return Math.round(num * 1000) / 1000
 }
 
 const add = (a, b) =>{
@@ -63,39 +115,26 @@ const multiply = (a, b) =>{
 }
 
 const divide = (a, b) =>{
-    return a/b;
-}
-
-function handleOperation(op){
-    value1 = parseInt(displayValue);
-    console.log(typeof(value1), value1);
-    console.log(displayValue);
-    displayValue = "";
-    operation = op;
-    console.log(operation);
-}
-
-function handleResult(){
-    value2 = parseInt(displayValue);
-    console.log(typeof(value2), value2);
-    console.log(displayValue);
-
-    console.log(`operate ${operation}, ${value1}, ${value2}`);
-    let result = operate(operation, value1, value2).toString();
-    console.log(result);
-    displayValue = result;
-    display.textContent = result;
+    let result;
+    if(b == 0){
+        result = "ERROR";
+    } else{
+        result = a/b;
+    }
+    return result;
 }
 
 function operate(op, n1, n2){
     switch(op){
-        case "sum":
+        case "addition":
             return add(n1,n2);
-        case "subt":
+        case "subtraction":
             return subtract(n1, n2);
-        case "multi":
+        case "multiply":
             return multiply(n1,n2);
-        case "div":
+        case "division":
             return divide(n1, n2);
+        default:
+            return null;
     }
 }
